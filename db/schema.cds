@@ -14,6 +14,7 @@ entity Spacefarers : cuid, managed {
   wormholeNavSkill   : Integer;
   email              : String(255);
   department         : Association to Departments;
+  position           : Association to Positions;
 }
 
 entity Departments : cuid {
@@ -21,4 +22,11 @@ entity Departments : cuid {
   planet      : String(100);
   spacefarers : Association to many Spacefarers
                   on spacefarers.department = $self;
+}
+
+entity Positions : cuid {
+  title       : String(100);
+  rank        : Integer;
+  spacefarers : Association to many Spacefarers
+                  on spacefarers.position = $self;
 }
