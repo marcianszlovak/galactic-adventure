@@ -13,4 +13,12 @@ entity Spacefarers : cuid, managed {
   stardustCollection : Decimal(10, 2);
   wormholeNavSkill   : Integer;
   email              : String(255);
+  department         : Association to Departments;
+}
+
+entity Departments : cuid {
+  name        : String(100);
+  planet      : String(100);
+  spacefarers : Association to many Spacefarers
+                  on spacefarers.department = $self;
 }
