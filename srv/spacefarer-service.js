@@ -5,6 +5,7 @@ export default class SpacefarerService extends cds.ApplicationService {
     const { Spacefarers } = this.entities;
 
     this.before("CREATE", Spacefarers, (req) => this.onBeforeCreate(req));
+    this.after("CREATE", Spacefarers, (data, req) => this.onAfterCreate(req));
     await super.init();
 
     console.log("SpacefarerService initialized");
@@ -42,5 +43,10 @@ export default class SpacefarerService extends cds.ApplicationService {
     console.log(
       `[@Before CREATE] Prepared ${firstName} ${lastName} for launch.`,
     );
+  }
+
+  async onAfterCreate(data) {
+    console.log("After create");
+    console.log(data);
   }
 }
