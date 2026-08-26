@@ -27,6 +27,6 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
       'DELETE',
       'READ'
     ],
-    to   : 'SpacefarerAdmn'
+    to   : 'SpacefarerAdmin'
   }
 ]);
