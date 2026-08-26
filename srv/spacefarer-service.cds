@@ -3,7 +3,7 @@ using galactic.spacefarer as gs from '../db/schema';
 @path: '/spacefarer'
 service SpacefarerService {
 
-  @odata.draft.enabled
+
   entity Spacefarers as projection on gs.Spacefarers;
 
   @readonly
