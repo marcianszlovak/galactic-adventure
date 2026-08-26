@@ -6,6 +6,7 @@
     "@sap/cds": "^10"
   },
   "devDependencies": {
+    "@cap-js/cds-types": "^0.19.0",
     "@cap-js/sqlite": "^3"
   },
   "scripts": {
@@ -17,8 +18,18 @@
       "auth": {
         "kind": "mocked",
         "users": {
-          "alice": { "password": "alice", "roles": ["SpacefarerAdmin"] },
-          "bob":   { "password": "bob",   "roles": ["SpacefarerViewer"] }
+          "alice": {
+            "password": "alice",
+            "roles": [
+              "SpacefarerAdmin"
+            ]
+          },
+          "bob": {
+            "password": "bob",
+            "roles": [
+              "SpacefarerViewer"
+            ]
+          }
         }
       }
     }
