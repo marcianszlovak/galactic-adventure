@@ -18,14 +18,14 @@
       "auth": {
         "kind": "mocked",
         "users": {
-          "alice": {
-            "password": "alice",
+          "marci": {
+            "password": "marci",
             "roles": [
               "SpacefarerAdmin"
             ]
           },
-          "bob": {
-            "password": "bob",
+          "peter": {
+            "password": "peter",
             "roles": [
               "SpacefarerViewer"
             ]
