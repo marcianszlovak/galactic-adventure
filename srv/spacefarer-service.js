@@ -16,6 +16,23 @@ export default class SpacefarerService extends cds.ApplicationService {
     const { stardustCollection, wormholeNavSkill, firstName, lastName } =
       req.data;
 
+    if (
+      wormholeNavSkill != null &&
+      (wormholeNavSkill < 0 || wormholeNavSkill > 100)
+    ) {
+      return req.reject(
+        400,
+        `Wormhole navigation skill must be between 0 and 100. Got: ${wormholeNavSkill}`,
+      );
+    }
+
+    if (stardustCollection != null && stardustCollection < 0) {
+      return req.reject(
+        400,
+        `Stardust collection cannot be negative. Got: ${stardustCollection}`,
+      );
+    }
+
     req.data.stardustCollection = (stardustCollection ?? 0) + 50;
     req.data.wormholeNavSkill =
       wormholeNavSkill != null && wormholeNavSkill >= 10
