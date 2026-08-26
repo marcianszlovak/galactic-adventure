@@ -12,16 +12,15 @@
     "start": "cds-serve"
   },
   "private": true,
-
   "cds": {
-  "requires": {
-    "auth": {
-      "kind": "mocked",
-      "users": {
-        "alice": { "password": "alice", "roles": ["SpacefarerAdmin"] },
-        "bob":   { "password": "bob",   "roles": ["SpacefarerViewer"] }
+    "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "alice": { "password": "alice", "roles": ["SpacefarerAdmin"] },
+          "bob":   { "password": "bob",   "roles": ["SpacefarerViewer"] }
+        }
       }
     }
   }
-}
 }
