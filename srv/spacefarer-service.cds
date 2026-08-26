@@ -12,3 +12,21 @@ service SpacefarerService {
   @readonly
   entity Positions   as projection on gs.Positions;
 }
+
+annotate SpacefarerService with @(requires: 'authenticated-user');
+
+annotate SpacefarerService.Spacefarers with @(restrict: [
+  {
+    grant: ['READ'],
+    to   : 'SpacefarerViewer'
+  },
+  {
+    grant: [
+      'CREATE',
+      'UPDATE',
+      'DELETE',
+      'READ'
+    ],
+    to   : 'SpacefarerAdmn'
+  }
+]);
