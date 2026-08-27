@@ -45,8 +45,18 @@ export default class SpacefarerService extends cds.ApplicationService {
     );
   }
 
-  async onAfterCreate(data) {
-    console.log("After create");
-    console.log(data);
+  async onAfterCreate(req) {
+    const { firstName, lastName, email } = req.data;
+
+    if (!email) {
+      console.warn(
+        `[@After CREATE] No email on file for ${firstName} ${lastName}, skipping notification.`,
+      );
+      return;
+    }
+
+    console.log(
+      `[@After CREATE] Sending welcome email to ${firstName} ${lastName} at ${email}.`,
+    );
   }
 }
