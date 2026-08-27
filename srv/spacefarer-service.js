@@ -55,8 +55,24 @@ export default class SpacefarerService extends cds.ApplicationService {
       return;
     }
 
-    console.log(
-      `[@After CREATE] Sending welcome email to ${firstName} ${lastName} at ${email}.`,
-    );
+    await this.sendCosmicWelcomeEmail({ email, firstName, lastName });
+  }
+
+  async sendCosmicWelcomeEmail({ email, firstName, lastName }) {
+    console.log(`
+    ================================
+    🚀 COSMIC NOTIFICATION EMAIL 🚀
+    To: ${email}
+    Subject: Welcome aboard, ${firstName}!
+
+    Dear ${firstName} ${lastName},
+
+    Congratulations! Your journey among the stars has begun.
+    Your spacesuit is fitted, your stardust reserves are stocked,
+    and the galaxy awaits your wormhole navigation skills.
+
+    Safe travels, spacefarer.
+    ================================
+    `);
   }
 }
