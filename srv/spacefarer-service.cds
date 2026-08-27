@@ -18,7 +18,8 @@ annotate SpacefarerService with @(requires: 'authenticated-user');
 annotate SpacefarerService.Spacefarers with @(restrict: [
   {
     grant: ['READ'],
-    to   : 'SpacefarerViewer'
+    to   : 'SpacefarerViewer',
+    where: 'department.planet = $user.planet'
   },
   {
     grant: [
@@ -27,6 +28,7 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
       'DELETE',
       'READ'
     ],
-    to   : 'SpacefarerAdmin'
+    to   : 'SpacefarerAdmin',
+    where: 'department.planet = $user.planet'
   }
 ]);

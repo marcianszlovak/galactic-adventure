@@ -22,13 +22,19 @@
             "password": "marci",
             "roles": [
               "SpacefarerAdmin"
-            ]
+            ],
+            "attr": {
+              "planet": "Planet X"
+            }
           },
           "peter": {
             "password": "peter",
             "roles": [
               "SpacefarerViewer"
-            ]
+            ],
+            "attr": {
+              "planet": "Planet Y"
+            }
           }
         }
       },
