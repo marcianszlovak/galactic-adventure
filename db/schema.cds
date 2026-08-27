@@ -5,10 +5,15 @@ using {
   managed
 } from '@sap/cds/common';
 
+type Planet : String enum {
+  PlanetX = 'Planet X';
+  PlanetY = 'Planet Y';
+}
+
 entity Spacefarers : cuid, managed {
   firstName          : String(100);
   lastName           : String(100);
-  originPlanet       : String(100);
+  originPlanet       : Planet;
   spacesuitColor     : String(50);
   stardustCollection : Decimal(10, 2);
   wormholeNavSkill   : Integer;
@@ -19,7 +24,7 @@ entity Spacefarers : cuid, managed {
 
 entity Departments : cuid {
   name        : String(100);
-  planet      : String(100);
+  planet      : Planet;
   spacefarers : Association to many Spacefarers
                   on spacefarers.department = $self;
 }
