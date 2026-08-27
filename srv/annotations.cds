@@ -1,16 +1,23 @@
 using SpacefarerService as service from './spacefarer-service';
 
-annotate service.Spacefarers with @(
-    UI.SelectionFields: [
+annotate service.Spacefarers with @(UI: {
+
+    HeaderInfo     : {
+        TypeName      : 'Spacefarer',
+        TypeNamePlural: 'Spacefarers',
+        Title         : {Value: firstName},
+        Description   : {Value: lastName}
+
+    },
+    SelectionFields: [
         originPlanet,
         spacesuitColor,
         department_ID
     ],
-
-    UI.LineItem       : [
+    LineItem       : [
         {
             Value: firstName,
-            Label: 'First Name'
+            Label: 'First Name',
         },
         {
             Value: lastName,
@@ -33,4 +40,4 @@ annotate service.Spacefarers with @(
             Label: 'Wormhole Navigation Skill'
         }
     ],
-);
+});
