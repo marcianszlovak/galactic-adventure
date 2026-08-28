@@ -24,7 +24,6 @@ entity Spacefarers : cuid, managed {
 
 entity Departments : cuid {
   name        : String(100);
-  planet      : Planet;
   spacefarers : Association to many Spacefarers
                   on spacefarers.department = $self;
 }

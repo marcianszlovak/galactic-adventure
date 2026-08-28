@@ -19,7 +19,7 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
   {
     grant: ['READ'],
     to   : 'SpacefarerViewer',
-    where: 'department.planet = $user.planet'
+    where: 'originPlanet = $user.planet'
   },
   {
     grant: [
@@ -29,6 +29,6 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
       'READ'
     ],
     to   : 'SpacefarerAdmin',
-    where: 'department.planet = $user.planet'
+    where: 'originPlanet = $user.planet'
   }
 ]);
