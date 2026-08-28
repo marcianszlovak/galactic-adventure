@@ -93,6 +93,10 @@ annotate service.Spacefarers with @(UI: {
     ]},
     FieldGroup #CosmicDetails: {Data: [
         {
+            Value: originPlanet,
+            Label: 'Origin Planet'
+        },
+        {
             Value: stardustCollection,
             Label: 'Stardust Collection'
         },
