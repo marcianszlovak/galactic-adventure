@@ -38,6 +38,18 @@ annotate service.Spacefarers with @(UI: {
         {
             Value: wormholeNavSkill,
             Label: 'Wormhole Navigation Skill'
+        },
+        {
+            Value: department.name,
+            Label: 'Department Name'
+        },
+        {
+            Value: position.rank,
+            Label: 'Position Rank'
+        },
+        {
+            Value: position.title,
+            Label: 'Position Title'
         }
     ],
     // to test pagination with few items
