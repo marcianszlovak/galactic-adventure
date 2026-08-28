@@ -2,19 +2,19 @@ using SpacefarerService as service from './spacefarer-service';
 
 annotate service.Spacefarers with @(UI: {
 
-    HeaderInfo     : {
+    HeaderInfo         : {
         TypeName      : 'Spacefarer',
         TypeNamePlural: 'Spacefarers',
         Title         : {Value: firstName},
         Description   : {Value: lastName}
 
     },
-    SelectionFields: [
+    SelectionFields    : [
         originPlanet,
         spacesuitColor,
         department_ID
     ],
-    LineItem       : [
+    LineItem           : [
         {
             Value: firstName,
             Label: 'First Name',
@@ -40,4 +40,15 @@ annotate service.Spacefarers with @(UI: {
             Label: 'Wormhole Navigation Skill'
         }
     ],
+    // to test pagination with few items
+    PresentationVariant: {
+        Text          : 'Default',
+        SortOrder     : [{
+            Property  : stardustCollection,
+            Descending: true
+        }],
+        Visualizations: ['@UI.LineItem'],
+        RequestAtLeast: [originPlanet],
+        MaxItems      : 2
+    }
 });
