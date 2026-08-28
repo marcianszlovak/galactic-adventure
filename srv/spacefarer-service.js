@@ -14,8 +14,11 @@ export default class SpacefarerService extends cds.ApplicationService {
   onBeforeCreate(req) {
     console.log("Received request to create a new spacefarer:", req.data);
 
-    const { stardustCollection, wormholeNavSkill, firstName, lastName } =
-      req.data;
+    const { wormholeNavSkill, firstName, lastName } = req.data;
+    const stardustCollection =
+      req.data.stardustCollection != null
+        ? Number(req.data.stardustCollection)
+        : null;
 
     if (
       wormholeNavSkill != null &&
