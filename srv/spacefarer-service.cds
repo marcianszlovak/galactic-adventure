@@ -6,7 +6,7 @@ service SpacefarerService {
   @odata.draft.enabled
   entity Spacefarers  as projection on gs.Spacefarers
     actions {
-      action issueWarpLicense(clearanceLevel: Integer, issueDate: Date, expiryDate: Date) returns Spacefarers;
+      action issueWarpLicense( @title: 'Clearance Level' clearanceLevel: Integer, @title: 'Issue Date' issueDate: Date, @title: 'Expiry Date' expiryDate: Date) returns Spacefarers;
     };
 
 
