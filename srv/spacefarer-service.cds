@@ -4,7 +4,10 @@ using galactic.spacefarer as gs from '../db/schema';
 service SpacefarerService {
 
   @odata.draft.enabled
-  entity Spacefarers as projection on gs.Spacefarers;
+  entity Spacefarers as projection on gs.Spacefarers
+    actions {
+      action launchMission(destination: String, launchDate: Date) returns Spacefarers;
+    };
 
   @odata.draft.enabled
   entity Missions    as projection on gs.Missions;
@@ -33,5 +36,23 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
     ],
     to   : 'SpacefarerAdmin',
     where: 'originPlanet = $user.planet'
+  }
+]);
+
+annotate SpacefarerService.Missions with @(restrict: [
+  {
+    grant: ['READ'],
+    to   : 'SpacefarerViewer',
+    where: 'spacefarer.originPlanet = $user.planet'
+  },
+  {
+    grant: [
+      'CREATE',
+      'UPDATE',
+      'DELETE',
+      'READ'
+    ],
+    to   : 'SpacefarerAdmin',
+    where: 'spacefarer.originPlanet = $user.planet'
   }
 ]);
