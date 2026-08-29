@@ -62,8 +62,8 @@ entity Positions : cuid {
 
 entity Missions : cuid {
   spacefarer     : Association to Spacefarers;
-  destination    : String(100);
-  launchDate     : Date;
-  status         : MissionStatus default #PLANNED;
+  destination    : String(100)                    @mandatory;
+  launchDate     : Date                           @mandatory;
+  status         : MissionStatus default #PLANNED @mandatory;
   stardustEarned : Decimal(9, 2) default 0;
 }
