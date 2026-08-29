@@ -5,16 +5,11 @@ using {
   managed
 } from '@sap/cds/common';
 
-type Planet : String enum {
-  PlanetX = 'Planet X';
-  PlanetY = 'Planet Y';
-}
-
 @assert.unique.email: [email]
 entity Spacefarers : cuid, managed {
   firstName          : String(25)                 @mandatory;
   lastName           : String(25)                 @mandatory;
-  originPlanet       : Planet                     @mandatory;
+  originPlanet       : String(25)                 @mandatory;
   spacesuitColor     : String(10);
   stardustCollection : Decimal(10, 2)             @assert.range: [
     0,
