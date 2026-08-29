@@ -70,7 +70,6 @@ annotate SpacefarerService.WarpLicenses with @(restrict: [
     grant: [
       'READ',
       'UPDATE',
-      'CREATE',
       'DELETE'
     ],
     to   : 'SpacefarerPowerUser',
