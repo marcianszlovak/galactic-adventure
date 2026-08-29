@@ -87,10 +87,6 @@ annotate service.Spacefarers with @(UI: {
             Label: 'Last Name'
         },
         {
-            Value: originPlanet,
-            Label: 'Origin Planet'
-        },
-        {
             Value: email,
             Label: 'Email Address'
         },
