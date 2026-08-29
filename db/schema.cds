@@ -5,23 +5,37 @@ using {
   managed
 } from '@sap/cds/common';
 
+type SpacefarerStatus : String enum {
+  CANDIDATE;
+  ACTIVE;
+  RETIRED;
+  LOST_IN_HYPERSPACE;
+}
+
 @assert.unique.email: [email]
 entity Spacefarers : cuid, managed {
-  firstName          : String(25)                 @mandatory;
-  lastName           : String(25)                 @mandatory;
-  originPlanet       : String(25)                 @mandatory;
+  firstName          : String(25)                          @mandatory;
+  lastName           : String(25)                          @mandatory;
+  originPlanet       : String(25)                          @mandatory;
   spacesuitColor     : String(10);
-  stardustCollection : Decimal(10, 2)             @assert.range: [
+  stardustCollection : Decimal(10, 2)                      @assert.range: [
     0,
     99999.99
   ];
-  wormholeNavSkill   : Integer                    @assert.range: [
+  wormholeNavSkill   : Integer                             @assert.range: [
     0,
     100
   ];
-  email              : String(35)                 @mandatory  @assert.format: '^[^\s@]+@[^\s@]+\.[^\s@]+$';
-  department         : Association to Departments @assert.integrity;
-  position           : Association to Positions   @assert.integrity;
+  status             : SpacefarerStatus default #CANDIDATE @mandatory;
+  yearsInService     : Integer                             @assert.range: [
+    0,
+    100
+  ];
+  hasWarpLicense     : Boolean                             @default     : false;
+  lastMissionDate    : Date;
+  email              : String(35)                          @mandatory  @assert.format: '^[^\s@]+@[^\s@]+\.[^\s@]+$';
+  department         : Association to Departments          @assert.integrity;
+  position           : Association to Positions            @assert.integrity;
 }
 
 entity Departments : cuid {
