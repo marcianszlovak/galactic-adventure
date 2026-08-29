@@ -59,6 +59,24 @@ annotate SpacefarerService.WarpLicenses with @(restrict: [
     where: 'spacefarer.originPlanet = $user.planet'
   },
   {
+    grant: [
+      'READ',
+      'UPDATE'
+    ],
+    to   : 'SpacefarerEditor',
+    where: 'spacefarer.originPlanet = $user.planet'
+  },
+  {
+    grant: [
+      'READ',
+      'UPDATE',
+      'CREATE',
+      'DELETE'
+    ],
+    to   : 'SpacefarerPowerUser',
+    where: 'spacefarer.originPlanet = $user.planet'
+  },
+  {
     grant: ['*'],
     to   : 'SpacefarerAdmin',
     where: 'spacefarer.originPlanet = $user.planet'
