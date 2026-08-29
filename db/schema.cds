@@ -5,18 +5,18 @@ using {
   managed
 } from '@sap/cds/common';
 
-type SpacefarerStatus : String enum {
+type SpacefarerStatus  : String enum {
   CANDIDATE;
   ACTIVE;
   RETIRED;
   LOST_IN_HYPERSPACE;
 }
 
-type MissionStatus    : String enum {
-  PLANNED;
-  IN_PROGRESS;
-  COMPLETED;
-  ABORTED;
+type WarpLicenseStatus : String enum {
+  PENDING;
+  ACTIVE;
+  EXPIRED;
+  REVOKED;
 }
 
 @assert.unique.email: [email]
@@ -38,12 +38,11 @@ entity Spacefarers : cuid, managed {
     0,
     100
   ];
-  hasWarpLicense     : Boolean                             @default     : false;
   email              : String(35)                          @mandatory  @assert.format: '^[^\s@]+@[^\s@]+\.[^\s@]+$';
   department         : Association to Departments          @assert.integrity;
   position           : Association to Positions            @assert.integrity;
-  missions           : Composition of many Missions
-                         on missions.spacefarer = $self;
+  warpLicenses       : Composition of many WarpLicenses
+                         on warpLicenses.spacefarer = $self;
 }
 
 entity Departments : cuid {
@@ -59,10 +58,14 @@ entity Positions : cuid {
                   on spacefarers.position = $self;
 }
 
-entity Missions : cuid {
+entity WarpLicenses : cuid {
   spacefarer     : Association to Spacefarers;
-  destination    : String(100)                    @mandatory;
-  launchDate     : Date                           @mandatory;
-  status         : MissionStatus default #PLANNED @mandatory;
-  stardustEarned : Decimal(9, 2) default 0;
+  licenseNumber  : String(20)                         @mandatory;
+  issueDate      : Date                               @mandatory;
+  expiryDate     : Date;
+  status         : WarpLicenseStatus default #PENDING @mandatory;
+  clearanceLevel : Integer default 1                  @assert.range: [
+    1,
+    10
+  ];
 }
