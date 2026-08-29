@@ -37,6 +37,24 @@
             "attr": {
               "planet": "Planet Y"
             }
+          },
+          "john": {
+            "password": "romero",
+            "roles": [
+              "SpacefarerPowerUser"
+            ],
+            "attr": {
+              "planet": "Planet Z"
+            }
+          },
+          "american": {
+            "password": "mcghee",
+            "roles": [
+              "SpacefarerEditor"
+            ],
+            "attr": {
+              "planet": "Planet X"
+            }
           }
         }
       },
