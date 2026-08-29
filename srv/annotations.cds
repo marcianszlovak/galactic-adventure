@@ -23,6 +23,13 @@ annotate service.Positions with {
     rank  @Common.Label: 'Position Rank';
 };
 
+annotate service.Missions with {
+    destination    @Common.Label: 'Mission Destination';
+    launchDate     @Common.Label: 'Launch Date';
+    status         @Common.Label: 'Mission Status';
+    stardustEarned @Common.Label: 'Stardust Earned';
+};
+
 annotate service.Spacefarers with {
     firstName    @Common.FieldControl: {$edmJson: {$If: [
         {$Path: 'HasActiveEntity'},
