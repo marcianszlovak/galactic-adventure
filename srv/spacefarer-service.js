@@ -6,7 +6,7 @@ export default class SpacefarerService extends cds.ApplicationService {
 
     this.before("CREATE", Spacefarers, (req) => this.onBeforeCreate(req));
     this.after("CREATE", Spacefarers, (data, req) => this.onAfterCreate(req));
-    this.on("issueWarpLicense", Spacefarers, async (req) =>
+    this.on("issueWarpLicense", "*", async (req) =>
       this.handleIssueWarpLicense(req),
     );
     await super.init();
@@ -83,7 +83,7 @@ export default class SpacefarerService extends cds.ApplicationService {
   }
 
   async handleIssueWarpLicense(req) {
-    const { clearanceLevel, issueDate, expiryDate, status } = req.data;
+    const { clearanceLevel, issueDate, expiryDate } = req.data;
     const spacefarer = await SELECT.one.from(req.subject);
     if (!spacefarer) {
       return req.reject(404, "Spacefarer not found");
@@ -100,7 +100,7 @@ export default class SpacefarerService extends cds.ApplicationService {
       licenseNumber,
       issueDate,
       expiryDate,
-      status,
+      status: "PENDING",
       clearanceLevel: clearanceLevel ?? 1,
     });
 
