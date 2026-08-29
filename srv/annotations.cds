@@ -38,18 +38,6 @@ annotate service.Spacefarers with @(UI: {
         {
             Value: wormholeNavSkill,
             Label: 'Wormhole Navigation Skill'
-        },
-        {
-            Value: department.name,
-            Label: 'Department Name'
-        },
-        {
-            Value: position.rank,
-            Label: 'Position Rank'
-        },
-        {
-            Value: position.title,
-            Label: 'Position Title'
         }
     ],
     // to test pagination with few items
@@ -140,39 +128,52 @@ annotate service.Spacefarers with {
 };
 
 annotate service.Spacefarers with {
-    department @Common.ValueList: {
-        $Type         : 'Common.ValueListType',
-        CollectionPath: 'Departments',
-        Parameters    : [
-            {
-                $Type            : 'Common.ValueListParameterInOut',
-                LocalDataProperty: department_ID,
-                ValueListProperty: 'ID'
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'name'
-            }
-        ]
-    };
+    department     @(
+        Common.Text           : department.name,
+        Common.TextArrangement: #TextOnly,
+        Common.Label          : 'Department Name',
+        Common.ValueList      : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'Departments',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: department_ID,
+                    ValueListProperty: 'ID'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'name'
+                }
+            ]
+        }
+    );
 
-    position   @Common.ValueList: {
-        $Type         : 'Common.ValueListType',
-        CollectionPath: 'Positions',
-        Parameters    : [
-            {
-                $Type            : 'Common.ValueListParameterInOut',
-                LocalDataProperty: position_ID,
-                ValueListProperty: 'ID'
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'title'
-            },
-            {
-                $Type            : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty: 'rank'
-            }
-        ]
-    };
+    position       @(
+        Common.Text           : position.title,
+        Common.TextArrangement: #TextOnly,
+        Common.Label          : 'Position Title',
+        Common.ValueList      : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'Positions',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: position_ID,
+                    ValueListProperty: 'ID'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'title'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'rank'
+                }
+            ]
+        }
+    );
+
+    originPlanet   @Common.Label: 'Origin Planet';
+    spacesuitColor @Common.Label: 'Spacesuit Color';
 };
