@@ -11,7 +11,6 @@ annotate service.Spacefarers with {
     status             @Common.Label: 'Spacefarer Status';
     yearsInService     @Common.Label: 'Years in Service';
     hasWarpLicense     @Common.Label: 'Has Warp License';
-    lastMissionDate    @Common.Label: 'Last Mission Date';
 };
 
 annotate service.Departments with {
@@ -120,7 +119,11 @@ annotate service.Spacefarers with @(UI: {
         lastMissionDate,
         department.name,
         position.rank,
-        position.title
+        position.title,
+        missions.destination,
+        missions.launchDate,
+        missions.status,
+        missions.stardustEarned
     ],
 
     LineItem                 : [
@@ -190,7 +193,6 @@ annotate service.Spacefarers with @(UI: {
         {Value: status},
         {Value: yearsInService},
         {Value: hasWarpLicense},
-        {Value: lastMissionDate}
     ]}
 });
 

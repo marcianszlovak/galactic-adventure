@@ -39,7 +39,6 @@ entity Spacefarers : cuid, managed {
     100
   ];
   hasWarpLicense     : Boolean                             @default     : false;
-  lastMissionDate    : Date;
   email              : String(35)                          @mandatory  @assert.format: '^[^\s@]+@[^\s@]+\.[^\s@]+$';
   department         : Association to Departments          @assert.integrity;
   position           : Association to Positions            @assert.integrity;
