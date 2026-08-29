@@ -12,6 +12,13 @@ type SpacefarerStatus : String enum {
   LOST_IN_HYPERSPACE;
 }
 
+type MissionStatus    : String enum {
+  PLANNED;
+  IN_PROGRESS;
+  COMPLETED;
+  ABORTED;
+}
+
 @assert.unique.email: [email]
 entity Spacefarers : cuid, managed {
   firstName          : String(25)                          @mandatory;
@@ -27,7 +34,7 @@ entity Spacefarers : cuid, managed {
     100
   ];
   status             : SpacefarerStatus default #CANDIDATE @mandatory;
-  yearsInService     : Integer                             @assert.range: [
+  yearsInService     : Integer default 0                   @assert.range: [
     0,
     100
   ];
@@ -49,4 +56,12 @@ entity Positions : cuid {
   rank        : Integer;
   spacefarers : Association to many Spacefarers
                   on spacefarers.position = $self;
+}
+
+entity Missions : cuid {
+  spacefarer     : Association to Spacefarers;
+  destination    : String(100);
+  launchDate     : Date;
+  status         : MissionStatus default #PLANNED;
+  stardustEarned : Decimal(9, 2) default 0;
 }
