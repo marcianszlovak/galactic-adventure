@@ -43,6 +43,8 @@ entity Spacefarers : cuid, managed {
   email              : String(35)                          @mandatory  @assert.format: '^[^\s@]+@[^\s@]+\.[^\s@]+$';
   department         : Association to Departments          @assert.integrity;
   position           : Association to Positions            @assert.integrity;
+  missions           : Association to many Missions
+                         on missions.spacefarer = $self;
 }
 
 entity Departments : cuid {
