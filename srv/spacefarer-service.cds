@@ -6,6 +6,9 @@ service SpacefarerService {
   @odata.draft.enabled
   entity Spacefarers as projection on gs.Spacefarers;
 
+  @odata.draft.enabled
+  entity Missions    as projection on gs.Missions;
+
   @readonly
   entity Departments as projection on gs.Departments;
 
