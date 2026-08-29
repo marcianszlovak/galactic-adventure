@@ -85,7 +85,11 @@ annotate service.Spacefarers with @(UI: {
         {
             Value: position_ID,
             Label: 'Position'
-        }
+        },
+        {
+            Value: position.rank,
+            Label: 'Rank'
+        },
     ]},
     FieldGroup #CosmicDetails: {Data: [
         {
