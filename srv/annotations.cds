@@ -120,25 +120,19 @@ annotate service.Spacefarers with @(UI: {
 });
 
 annotate service.Spacefarers with {
-    firstName        @Common.FieldControl: {$edmJson: {$If: [
+    firstName    @Common.FieldControl: {$edmJson: {$If: [
         {$Path: 'HasActiveEntity'},
         1,
         3
     ]}};
 
-    lastName         @Common.FieldControl: {$edmJson: {$If: [
+    lastName     @Common.FieldControl: {$edmJson: {$If: [
         {$Path: 'HasActiveEntity'},
         1,
         3
     ]}};
 
-    originPlanet     @Common.FieldControl: {$edmJson: {$If: [
-        {$Path: 'HasActiveEntity'},
-        1,
-        3
-    ]}};
-
-    wormholeNavSkill @Common.FieldControl: {$edmJson: {$If: [
+    originPlanet @Common.FieldControl: {$edmJson: {$If: [
         {$Path: 'HasActiveEntity'},
         1,
         3
