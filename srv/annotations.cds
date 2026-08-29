@@ -158,6 +158,12 @@ annotate service.Spacefarers with @(UI: {
             ID    : 'CosmicDetails',
             Label : 'Cosmic Details',
             Target: '@UI.FieldGroup#CosmicDetails'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID    : 'MissionsFacet',
+            Label : 'Missions',
+            Target: 'missions/@UI.LineItem'
         }
     ],
 
