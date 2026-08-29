@@ -1,7 +1,7 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Thu Aug 27 2026 20:42:55 GMT+0200 (Central European Summer Time)|
+|**Generation Date and Time**<br>Sat Aug 29 2026 22:45:16 GMT+0200 (Central European Summer Time)|
 |**App Generator**<br>SAP Fiori Application Generator|
 |**App Generator Version**<br>1.31.1|
 |**Generation Platform**<br>Visual Studio Code|
@@ -9,23 +9,24 @@
 |**Service Type**<br>Local CAP|
 |**Service URL**<br>http://localhost:4004/spacefarer/|
 |**Module Name**<br>spacefarers|
-|**Application Title**<br>Spacefarers&#39; App|
-|**Namespace**<br>spacefarers|
+|**Application Title**<br>Spacefarers App|
+|**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
 |**UI5 Version**<br>1.151.0|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>True, see https://www.npmjs.com/package/@sap-ux/eslint-plugin-fiori-tools#rules for the eslint rules.|
 |**Main Entity**<br>Spacefarers|
+|**Navigation Entity**<br>None|
 
 ## spacefarers
 
-An SAP Fiori application.
+A Galactic Adventure
 
 ### Starting the generated app
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  To launch the generated app, start your CAP project:  and navigate to the following location in your browser:
 
-http://localhost:4004/spacefarers/webapp/index.html
+http://localhost:4004/spacefarers/index.html
 
 #### Pre-requisites:
 

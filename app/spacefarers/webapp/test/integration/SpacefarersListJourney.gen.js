@@ -33,9 +33,23 @@ sap.ui.define([
         });
 
         opaTest("Check filter bar", function (Given, When, Then) {
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "email" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "firstName" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "lastName" });
             Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "originPlanet" });
             Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "spacesuitColor" });
-            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "department_ID" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "stardustCollection" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "wormholeNavSkill" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "status" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "yearsInService" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "lastMissionDate" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "department/name" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "position/rank" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "position/title" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "warpLicenses/licenseNumber" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "warpLicenses/issueDate" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "warpLicenses/status" });
+            Then.onTheSpacefarersListGenerated.onFilterBar().iCheckFilterField({ property: "warpLicenses/clearanceLevel" });
         });
 
         // Note: this test will only work if the ListReport page has a search field and shows data that matches the search term. Please ensure that the test data and search term are set up accordingly.
@@ -46,7 +60,7 @@ sap.ui.define([
         // });
 
         opaTest("Check table columns and actions", function (Given, When, Then) {
-            Then.onTheSpacefarersListGenerated.onTable(defaultTableId).iCheckColumns(undefined, {"firstName":{"header":"First Name"},"lastName":{"header":"Last Name"},"originPlanet":{"header":"Origin Planet"},"spacesuitColor":{"header":"Spacesuit Color"},"stardustCollection":{"header":"Stardust Collection"},"wormholeNavSkill":{"header":"Wormhole Navigation Skill"}});
+            Then.onTheSpacefarersListGenerated.onTable(defaultTableId).iCheckColumns(undefined, {"firstName":{"header":"First Name"},"lastName":{"header":"Last Name"},"originPlanet":{"header":"Origin Planet"},"spacesuitColor":{"header":"Spacesuit Color"},"stardustCollection":{"header":"Stardust Collection"},"wormholeNavSkill":{"header":"Wormhole Navigation Skill"},"email":{"header":"Email Address"},"status":{"header":"Spacefarer Status"}});
         });
 
         opaTest("Navigate to ObjectPage", function (Given, When, Then) {

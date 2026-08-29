@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-spacefarers": "cds watch --open spacefarers.spacefarers/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-spacefarers": "cds watch --open spacefarers/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "private": true,
   "cds": {
@@ -70,6 +70,7 @@
     "app/*"
   ],
   "sapux": [
+    "app/spacefarers",
     "app/spacefarers"
   ]
 }

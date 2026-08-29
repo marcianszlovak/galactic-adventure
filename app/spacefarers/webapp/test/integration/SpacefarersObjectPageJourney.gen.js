@@ -35,6 +35,27 @@ sap.ui.define([
 
 
 
+        opaTest("Check body sections of the Object Page", function (Given, When, Then) {
+            Then.onTheSpacefarersObjectPageGenerated.iCheckNumberOfSections(3);
+            When.onTheSpacefarersObjectPageGenerated.iPressSectionIconTabFilterButton("GeneralInfo");
+            Then.onTheSpacefarersObjectPageGenerated.iCheckSection({ section: "GeneralInfo" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "GeneralInfo" }).iCheckField({ property: "firstName" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "GeneralInfo" }).iCheckField({ property: "lastName" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "GeneralInfo" }).iCheckField({ property: "email" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "GeneralInfo" }).iCheckField({ property: "department_ID" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "GeneralInfo" }).iCheckField({ property: "position_ID" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "GeneralInfo" }).iCheckField({ property: "position/rank" });
+            When.onTheSpacefarersObjectPageGenerated.iPressSectionIconTabFilterButton("CosmicDetails");
+            Then.onTheSpacefarersObjectPageGenerated.iCheckSection({ section: "CosmicDetails" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "CosmicDetails" }).iCheckField({ property: "originPlanet" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "CosmicDetails" }).iCheckField({ property: "stardustCollection" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "CosmicDetails" }).iCheckField({ property: "wormholeNavSkill" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "CosmicDetails" }).iCheckField({ property: "spacesuitColor" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "CosmicDetails" }).iCheckField({ property: "status" });
+            Then.onTheSpacefarersObjectPageGenerated.onForm({ section: "CosmicDetails" }).iCheckField({ property: "yearsInService" });
+            When.onTheSpacefarersObjectPageGenerated.iPressSectionIconTabFilterButton("WarpLicensesFacet");
+            Then.onTheSpacefarersObjectPageGenerated.iCheckSection({ section: "WarpLicensesFacet" });
+       });
 
         opaTest("Teardown", function (Given, When, Then) { 
             // Cleanup
