@@ -10,16 +10,23 @@ type Planet : String enum {
   PlanetY = 'Planet Y';
 }
 
+@assert.unique.email: [email]
 entity Spacefarers : cuid, managed {
-  firstName          : String(100);
-  lastName           : String(100);
-  originPlanet       : Planet;
-  spacesuitColor     : String(50);
-  stardustCollection : Decimal(10, 2);
-  wormholeNavSkill   : Integer;
-  email              : String(255);
-  department         : Association to Departments;
-  position           : Association to Positions;
+  firstName          : String(25)                 @mandatory;
+  lastName           : String(25)                 @mandatory;
+  originPlanet       : Planet                     @mandatory;
+  spacesuitColor     : String(10);
+  stardustCollection : Decimal(10, 2)             @assert.range: [
+    0,
+    99999.99
+  ];
+  wormholeNavSkill   : Integer                    @assert.range: [
+    0,
+    100
+  ];
+  email              : String(35)                 @mandatory  @assert.format: '^[^\s@]+@[^\s@]+\.[^\s@]+$';
+  department         : Association to Departments @assert.integrity;
+  position           : Association to Positions   @assert.integrity;
 }
 
 entity Departments : cuid {
