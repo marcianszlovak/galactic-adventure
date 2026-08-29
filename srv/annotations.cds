@@ -10,7 +10,6 @@ annotate service.Spacefarers with {
     wormholeNavSkill   @Common.Label: 'Wormhole Navigation Skill';
     status             @Common.Label: 'Spacefarer Status';
     yearsInService     @Common.Label: 'Years in Service';
-    hasWarpLicense     @Common.Label: 'Has Warp License';
 };
 
 annotate service.Departments with {
@@ -22,11 +21,12 @@ annotate service.Positions with {
     rank  @Common.Label: 'Position Rank';
 };
 
-annotate service.Missions with {
-    destination    @Common.Label: 'Mission Destination';
-    launchDate     @Common.Label: 'Launch Date';
-    status         @Common.Label: 'Mission Status';
-    stardustEarned @Common.Label: 'Stardust Earned';
+annotate service.WarpLicenses with {
+    licenseNumber  @Common.Label: 'License Number';
+    issueDate      @Common.Label: 'Issue Date';
+    expiryDate     @Common.Label: 'Expiry Date';
+    status         @Common.Label: 'License Status';
+    clearanceLevel @Common.Label: 'Clearance Level';
 };
 
 annotate service.Spacefarers with {
@@ -115,15 +115,14 @@ annotate service.Spacefarers with @(UI: {
         wormholeNavSkill,
         status,
         yearsInService,
-        hasWarpLicense,
         lastMissionDate,
         department.name,
         position.rank,
         position.title,
-        missions.destination,
-        missions.launchDate,
-        missions.status,
-        missions.stardustEarned
+        warpLicenses.licenseNumber,
+        warpLicenses.issueDate,
+        warpLicenses.status,
+        warpLicenses.clearanceLevel
     ],
 
     LineItem                 : [
@@ -164,9 +163,9 @@ annotate service.Spacefarers with @(UI: {
         },
         {
             $Type : 'UI.ReferenceFacet',
-            ID    : 'MissionsFacet',
-            Label : 'Missions',
-            Target: 'missions/@UI.LineItem'
+            ID    : 'WarpLicensesFacet',
+            Label : 'Warp Licenses',
+            Target: 'warpLicenses/@UI.LineItem'
         }
     ],
 
@@ -192,21 +191,21 @@ annotate service.Spacefarers with @(UI: {
         {Value: spacesuitColor},
         {Value: status},
         {Value: yearsInService},
-        {Value: hasWarpLicense},
     ]}
 });
 
-annotate service.Missions with @(UI: {
+annotate service.WarpLicenses with @(UI: {
     HeaderInfo: {
-        TypeName      : 'Mission',
-        TypeNamePlural: 'Missions',
-        Title         : {Value: destination}
+        TypeName      : 'Warp License',
+        TypeNamePlural: 'Warp Licenses',
+        Title         : {Value: licenseNumber}
     },
 
     LineItem  : [
-        {Value: destination},
-        {Value: launchDate},
+        {Value: licenseNumber},
+        {Value: issueDate},
+        {Value: expiryDate},
         {Value: status},
-        {Value: stardustEarned}
+        {Value: clearanceLevel}
     ],
 });

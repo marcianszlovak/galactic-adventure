@@ -6,8 +6,8 @@ export default class SpacefarerService extends cds.ApplicationService {
 
     this.before("CREATE", Spacefarers, (req) => this.onBeforeCreate(req));
     this.after("CREATE", Spacefarers, (data, req) => this.onAfterCreate(req));
-    this.on("launchMission", Spacefarers, async (req) =>
-      this.handleLaunchMission(req),
+    this.on("issueWarpLicense", Spacefarers, async (req) =>
+      this.handleIssueWarpLicense(req),
     );
     await super.init();
 
@@ -82,18 +82,21 @@ export default class SpacefarerService extends cds.ApplicationService {
     `);
   }
 
-  async handleLaunchMission(req) {
-    const { destination, launchDate } = req.data;
+  async handleIssueWarpLicense(req) {
+    const { clearanceLevel } = req.data;
     const spacefarer = await SELECT.one.from(req.subject);
     if (!spacefarer) {
       return req.reject(404, "Spacefarer not found");
     }
 
-    await INSERT.into(this.entities.Missions).entries({
+    const licenseNumber = `WL-${Date.now()}`;
+
+    await INSERT.into(this.entities.WarpLicenses).entries({
       spacefarer_ID: spacefarer.ID,
-      destination,
-      launchDate,
-      status: "PLANNED",
+      licenseNumber,
+      issueDate: new Date().toISOString().slice(0, 10),
+      status: "PENDING",
+      clearanceLevel: clearanceLevel ?? 1,
     });
 
     return SELECT.one

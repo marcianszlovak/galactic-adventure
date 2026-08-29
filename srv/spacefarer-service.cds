@@ -4,19 +4,19 @@ using galactic.spacefarer as gs from '../db/schema';
 service SpacefarerService {
 
   @odata.draft.enabled
-  entity Spacefarers as projection on gs.Spacefarers
+  entity Spacefarers  as projection on gs.Spacefarers
     actions {
-      action launchMission(destination: String, launchDate: Date) returns Spacefarers;
+      action issueWarpLicense(clearanceLevel: Integer) returns Spacefarers;
     };
 
 
-  entity Missions    as projection on gs.Missions;
+  entity WarpLicenses as projection on gs.WarpLicenses;
 
   @readonly
-  entity Departments as projection on gs.Departments;
+  entity Departments  as projection on gs.Departments;
 
   @readonly
-  entity Positions   as projection on gs.Positions;
+  entity Positions    as projection on gs.Positions;
 }
 
 annotate SpacefarerService with @(requires: 'authenticated-user');
@@ -52,7 +52,7 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
   }
 ]);
 
-annotate SpacefarerService.Missions with @(restrict: [
+annotate SpacefarerService.WarpLicenses with @(restrict: [
   {
     grant: ['READ'],
     to   : 'SpacefarerViewer',
