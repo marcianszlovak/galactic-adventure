@@ -193,3 +193,18 @@ annotate service.Spacefarers with @(UI: {
         {Value: lastMissionDate}
     ]}
 });
+
+annotate service.Missions with @(UI: {
+    HeaderInfo: {
+        TypeName      : 'Mission',
+        TypeNamePlural: 'Missions',
+        Title         : {Value: destination}
+    },
+
+    LineItem  : [
+        {Value: destination},
+        {Value: launchDate},
+        {Value: status},
+        {Value: stardustEarned}
+    ],
+});
