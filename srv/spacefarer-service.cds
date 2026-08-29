@@ -9,7 +9,7 @@ service SpacefarerService {
       action launchMission(destination: String, launchDate: Date) returns Spacefarers;
     };
 
-  @odata.draft.enabled
+
   entity Missions    as projection on gs.Missions;
 
   @readonly
@@ -29,11 +29,24 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
   },
   {
     grant: [
-      'CREATE',
-      'UPDATE',
-      'DELETE',
-      'READ'
+      'READ',
+      'UPDATE'
     ],
+    to   : 'SpacefarerEditor',
+    where: 'originPlanet = $user.planet'
+  },
+  {
+    grant: [
+      'READ',
+      'UPDATE',
+      'CREATE',
+      'DELETE'
+    ],
+    to   : 'SpacefarerPowerUser',
+    where: 'originPlanet = $user.planet'
+  },
+  {
+    grant: ['*'],
     to   : 'SpacefarerAdmin',
     where: 'originPlanet = $user.planet'
   }
@@ -46,12 +59,7 @@ annotate SpacefarerService.Missions with @(restrict: [
     where: 'spacefarer.originPlanet = $user.planet'
   },
   {
-    grant: [
-      'CREATE',
-      'UPDATE',
-      'DELETE',
-      'READ'
-    ],
+    grant: ['*'],
     to   : 'SpacefarerAdmin',
     where: 'spacefarer.originPlanet = $user.planet'
   }
