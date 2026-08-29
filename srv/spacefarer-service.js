@@ -83,7 +83,7 @@ export default class SpacefarerService extends cds.ApplicationService {
   }
 
   async handleIssueWarpLicense(req) {
-    const { clearanceLevel } = req.data;
+    const { clearanceLevel, issueDate, expiryDate, status } = req.data;
     const spacefarer = await SELECT.one.from(req.subject);
     if (!spacefarer) {
       return req.reject(404, "Spacefarer not found");
@@ -94,8 +94,9 @@ export default class SpacefarerService extends cds.ApplicationService {
     await INSERT.into(this.entities.WarpLicenses).entries({
       spacefarer_ID: spacefarer.ID,
       licenseNumber,
-      issueDate: new Date().toISOString().slice(0, 10),
-      status: "PENDING",
+      issueDate,
+      expiryDate,
+      status,
       clearanceLevel: clearanceLevel ?? 1,
     });
 
