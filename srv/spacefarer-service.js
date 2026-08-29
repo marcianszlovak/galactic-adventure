@@ -89,6 +89,10 @@ export default class SpacefarerService extends cds.ApplicationService {
       return req.reject(404, "Spacefarer not found");
     }
 
+    if (expiryDate <= issueDate) {
+      return req.reject(400, "Expiry date must be later than the issue date.");
+    }
+
     const licenseNumber = `WL-${Date.now()}`;
 
     await INSERT.into(this.entities.WarpLicenses).entries({
