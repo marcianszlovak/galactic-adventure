@@ -138,12 +138,6 @@ annotate service.Spacefarers with {
         3
     ]}};
 
-    email            @Common.FieldControl: {$edmJson: {$If: [
-        {$Path: 'HasActiveEntity'},
-        1,
-        3
-    ]}};
-
     wormholeNavSkill @Common.FieldControl: {$edmJson: {$If: [
         {$Path: 'HasActiveEntity'},
         1,
