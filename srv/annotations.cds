@@ -194,6 +194,13 @@ annotate service.Spacefarers with @(UI: {
     ]}
 });
 
+annotate service.Spacefarers with @(UI.Identification: [{
+    $Type        : 'UI.DataFieldForAction',
+    Action       : 'SpacefarerService.issueWarpLicense',
+    Label        : 'Issue Warp License',
+    ![@UI.Hidden]: {$edmJson: {$Not: {$Path: 'IsActiveEntity'}}}
+}]);
+
 annotate service.WarpLicenses with @(UI: {
     HeaderInfo: {
         TypeName      : 'Warp License',
