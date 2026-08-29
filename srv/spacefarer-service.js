@@ -7,7 +7,7 @@ export default class SpacefarerService extends cds.ApplicationService {
     this.before("CREATE", Spacefarers, (req) => this.onBeforeCreate(req));
     this.after("CREATE", Spacefarers, (data, req) => this.onAfterCreate(req));
     this.on("launchMission", Spacefarers, async (req) =>
-      this.launchMission(req),
+      this.handleLaunchMission(req),
     );
     await super.init();
 
@@ -82,7 +82,22 @@ export default class SpacefarerService extends cds.ApplicationService {
     `);
   }
 
-  async launchMission(req) {
-    console.log(req);
+  async handleLaunchMission(req) {
+    const { destination, launchDate } = req.data;
+    const spacefarer = await SELECT.one.from(req.subject);
+    if (!spacefarer) {
+      return req.reject(404, "Spacefarer not found");
+    }
+
+    await INSERT.into(this.entities.Missions).entries({
+      spacefarer_ID: spacefarer.ID,
+      destination,
+      launchDate,
+      status: "PLANNED",
+    });
+
+    return SELECT.one
+      .from(this.entities.Spacefarers)
+      .where({ ID: spacefarer.ID });
   }
 }
