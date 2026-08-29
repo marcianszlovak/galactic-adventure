@@ -8,6 +8,10 @@ annotate service.Spacefarers with {
     spacesuitColor     @Common.Label: 'Spacesuit Color';
     stardustCollection @Common.Label: 'Stardust Collection';
     wormholeNavSkill   @Common.Label: 'Wormhole Navigation Skill';
+    status             @Common.Label: 'Spacefarer Status';
+    yearsInService     @Common.Label: 'Years in Service';
+    hasWarpLicense     @Common.Label: 'Has Warp License';
+    lastMissionDate    @Common.Label: 'Last Mission Date';
 };
 
 annotate service.Departments with {
@@ -103,6 +107,10 @@ annotate service.Spacefarers with @(UI: {
         spacesuitColor,
         stardustCollection,
         wormholeNavSkill,
+        status,
+        yearsInService,
+        hasWarpLicense,
+        lastMissionDate,
         department.name,
         position.rank,
         position.title
@@ -114,7 +122,9 @@ annotate service.Spacefarers with @(UI: {
         {Value: originPlanet},
         {Value: spacesuitColor},
         {Value: stardustCollection},
-        {Value: wormholeNavSkill}
+        {Value: wormholeNavSkill},
+        {Value: email},
+        {Value: status}
     ],
 
     // to test pagination with few items
@@ -163,6 +173,10 @@ annotate service.Spacefarers with @(UI: {
         {Value: originPlanet},
         {Value: stardustCollection},
         {Value: wormholeNavSkill},
-        {Value: spacesuitColor}
+        {Value: spacesuitColor},
+        {Value: status},
+        {Value: yearsInService},
+        {Value: hasWarpLicense},
+        {Value: lastMissionDate}
     ]}
 });
