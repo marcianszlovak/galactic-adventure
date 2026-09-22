@@ -13,6 +13,7 @@ annotate service.Spacefarers with {
 };
 
 annotate service.Departments with {
+    ID @(Common.Text: name, Common.TextArrangement: #TextOnly, UI.Hidden);
     name @Common.Label: 'Department Name';
 };
 
@@ -116,7 +117,6 @@ annotate service.Spacefarers with @(UI: {
         wormholeNavSkill,
         status,
         yearsInService,
-        lastMissionDate,
         department.name,
         position.rank,
         position.title,
