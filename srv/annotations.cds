@@ -17,6 +17,7 @@ annotate service.Departments with {
 };
 
 annotate service.Positions with {
+    ID @(Common.Text: title, Common.TextArrangement: #TextOnly, UI.Hidden);
     title @Common.Label: 'Position Title';
     rank  @Common.Label: 'Position Rank';
 };
