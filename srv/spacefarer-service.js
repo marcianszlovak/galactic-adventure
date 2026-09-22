@@ -4,6 +4,10 @@ export default class SpacefarerService extends cds.ApplicationService {
   async init() {
     const { Spacefarers } = this.entities;
 
+    this.before("PATCH", Spacefarers.drafts, (req) =>
+      this.onBeforeDraftPatch(req, Spacefarers),
+    );
+
     this.before("CREATE", Spacefarers, (req) => this.onBeforeCreate(req));
     this.after("CREATE", Spacefarers, (data, req) => this.onAfterCreate(req));
     this.on("issueWarpLicense", "*", async (req) =>
@@ -12,6 +16,36 @@ export default class SpacefarerService extends cds.ApplicationService {
     await super.init();
 
     console.log("SpacefarerService initialized");
+  }
+
+  async onBeforeDraftPatch(req, Spacefarers) {
+    if (!Object.hasOwn(req.data, "email")) {
+      return;
+    }
+
+    const email = req.data.email;
+    const format = new RegExp(
+      Spacefarers.elements.email["@assert.format"],
+      "u",
+    );
+
+    if (typeof email !== "string" || !format.test(email)) {
+      return req.reject(400, "Enter a valid email address.", "email");
+    }
+
+    const duplicate = await cds.tx(req).run(
+      cds.ql.SELECT.one
+        .from(Spacefarers)
+        .columns("ID")
+        .where({
+          email,
+          ID: { "!=": req.data.ID },
+        }),
+    );
+
+    if (duplicate) {
+      return req.reject(400, "This email address is already in use.", "email");
+    }
   }
 
   onBeforeCreate(req) {
