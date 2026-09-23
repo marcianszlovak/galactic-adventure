@@ -13,9 +13,19 @@ service SpacefarerService {
       virtual canIssueWarpLicense : Boolean
     }
     actions {
-      @Core.OperationAvailable: canIssueWarpLicense
-      @Common.SideEffects: {TargetEntities: ['warpLicenses']}
-      action issueWarpLicense( @title: 'Clearance Level' clearanceLevel: Integer, @title: 'Issue Date' issueDate: Date, @title: 'Expiry Date' expiryDate: Date) returns Spacefarers;
+      @Core.OperationAvailable: {$edmJson: {$Path: 'in/canIssueWarpLicense'}}
+      @Common.SideEffects     : {TargetEntities: ['warpLicenses']}
+      action issueWarpLicense(
+                              @title: 'Clearance Level'  @mandatory  @assert.range: [
+                                1,
+                                10
+                              ]
+                              clearanceLevel: Integer,
+                              @title: 'Issue Date'  @mandatory
+                              issueDate: Date,
+                              @title: 'Expiry Date'  @mandatory
+                              @Validation.Minimum: {$edmJson: {$Path: 'issueDate'}}
+                              expiryDate: Date) returns Spacefarers;
     };
 
 
