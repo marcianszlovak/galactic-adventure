@@ -45,7 +45,7 @@ entity Spacefarers : cuid, managed {
   firstName          : String(25)                          @mandatory;
   lastName           : String(25)                          @mandatory;
   originPlanet       : Planet                              @mandatory  @assert.range : true;
-  spacesuitColor     : SpacesuitColor                      @assert.range: true;
+  spacesuitColor     : SpacesuitColor default #Silver      @assert.range: true;
   stardustCollection : Decimal(10, 2) default 0            @assert.range: [
     0,
     99999.99
