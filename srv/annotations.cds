@@ -1,18 +1,29 @@
 using SpacefarerService as service from './spacefarer-service';
 
 annotate service.Spacefarers with {
-    status @(
-        Common.ValueListWithFixedValues: true,
-        Common.ValueList: {
-            CollectionPath: 'SpacefarerStatuses',
-            Parameters: [{
-                $Type: 'Common.ValueListParameterInOut',
-                LocalDataProperty: status,
-                ValueListProperty: 'value'
-            }]
-        }
+    firstName          @(
+        Common.Label: 'First Name',
+        Common.FieldControl: {$edmJson: {$If: [
+            {$Path: 'HasActiveEntity'},
+            1,
+            7
+        ]}}
     );
-    spacesuitColor @(
+    lastName           @(
+        Common.Label: 'Last Name',
+        Common.FieldControl: {$edmJson: {$If: [
+            {$Path: 'HasActiveEntity'},
+            1,
+            7
+        ]}}
+    );
+    email              @Common.Label: 'Email Address';
+    originPlanet       @(
+        Common.Label: 'Origin Planet',
+        Common.FieldControl: planetFieldControl
+    );
+    spacesuitColor     @(
+        Common.Label: 'Spacesuit Color',
         Common.ValueListWithFixedValues: true,
         Common.ValueList: {
             CollectionPath: 'SpacesuitColors',
@@ -23,96 +34,60 @@ annotate service.Spacefarers with {
             }]
         }
     );
-};
-
-annotate service.Spacefarers with {
-    firstName          @Common.Label: 'First Name';
-    lastName           @Common.Label: 'Last Name';
-    email              @Common.Label: 'Email Address';
-    originPlanet       @Common.Label: 'Origin Planet';
-    spacesuitColor     @Common.Label: 'Spacesuit Color';
     stardustCollection @Common.Label: 'Stardust Collection';
     wormholeNavSkill   @Common.Label: 'Wormhole Navigation Skill';
-    status             @Common.Label: 'Spacefarer Status';
+    status             @(
+        Common.Label: 'Spacefarer Status',
+        Common.ValueListWithFixedValues: true,
+        Common.ValueList: {
+            CollectionPath: 'SpacefarerStatuses',
+            Parameters: [{
+                $Type: 'Common.ValueListParameterInOut',
+                LocalDataProperty: status,
+                ValueListProperty: 'value'
+            }]
+        }
+    );
     yearsInService     @Common.Label: 'Years in Service';
-};
-
-annotate service.Departments with {
-    ID @(Common.Text: name, Common.TextArrangement: #TextOnly, UI.Hidden);
-    name @Common.Label: 'Department Name';
-};
-
-annotate service.Positions with {
-    ID @(Common.Text: title, Common.TextArrangement: #TextOnly, UI.Hidden);
-    title @Common.Label: 'Position Title';
-    rank  @Common.Label: 'Position Rank';
-};
-
-annotate service.WarpLicenses with {
-    licenseNumber  @Common.Label: 'License Number';
-    issueDate      @Common.Label: 'Issue Date';
-    expiryDate     @Common.Label: 'Expiry Date';
-    status         @Common.Label: 'License Status';
-    clearanceLevel @Common.Label: 'Clearance Level';
-};
-
-annotate service.Spacefarers with {
-    firstName    @Common.FieldControl: {$edmJson: {$If: [
-        {$Path: 'HasActiveEntity'},
-        1,
-        7
-    ]}};
-
-    lastName     @Common.FieldControl: {$edmJson: {$If: [
-        {$Path: 'HasActiveEntity'},
-        1,
-        7
-    ]}};
-
-    originPlanet @Common.FieldControl: planetFieldControl;
-};
-
-annotate service.Spacefarers with {
-    department @(
-        Common.Text           : department.name,
+    department         @(
+        Common.Text: department.name,
         Common.TextArrangement: #TextOnly,
-        Common.Label          : 'Department',
-        Common.ValueList      : {
-            $Type         : 'Common.ValueListType',
+        Common.Label: 'Department',
+        Common.ValueList: {
+            $Type: 'Common.ValueListType',
             CollectionPath: 'Departments',
-            Parameters    : [
+            Parameters: [
                 {
-                    $Type            : 'Common.ValueListParameterInOut',
+                    $Type: 'Common.ValueListParameterInOut',
                     LocalDataProperty: department_ID,
                     ValueListProperty: 'ID'
                 },
                 {
-                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    $Type: 'Common.ValueListParameterDisplayOnly',
                     ValueListProperty: 'name'
                 }
             ]
         }
     );
-
-    position   @(
-        Common.Text           : position.title,
+    position           @(
+        Common.Text: position.title,
         Common.TextArrangement: #TextOnly,
-        Common.Label          : 'Position',
-        Common.ValueList      : {
-            $Type         : 'Common.ValueListType',
+        Common.Label: 'Position',
+        Common.ValueList: {
+            $Type: 'Common.ValueListType',
             CollectionPath: 'Positions',
-            Parameters    : [
+            Parameters: [
                 {
-                    $Type            : 'Common.ValueListParameterInOut',
+                    $Type: 'Common.ValueListParameterInOut',
                     LocalDataProperty: position_ID,
                     ValueListProperty: 'ID'
                 },
                 {
-                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    $Type: 'Common.ValueListParameterDisplayOnly',
                     ValueListProperty: 'title'
                 },
                 {
-                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    $Type: 'Common.ValueListParameterDisplayOnly',
                     ValueListProperty: 'rank'
                 }
             ]
