@@ -13,6 +13,7 @@ service SpacefarerService {
       virtual canIssueWarpLicense : Boolean
     }
     actions {
+      @Core.OperationAvailable: canIssueWarpLicense
       @Common.SideEffects: {TargetEntities: ['warpLicenses']}
       action issueWarpLicense( @title: 'Clearance Level' clearanceLevel: Integer, @title: 'Issue Date' issueDate: Date, @title: 'Expiry Date' expiryDate: Date) returns Spacefarers;
     };
