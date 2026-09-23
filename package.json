@@ -26,7 +26,7 @@
               "SpacefarerAdmin"
             ],
             "attr": {
-              "planet": "Planet X"
+              "planet": "Mars"
             }
           },
           "peter": {
@@ -41,21 +41,22 @@
           "john": {
             "password": "romero",
             "roles": [
-              "SpacefarerPowerUser"
+              "SpacefarerOfficer"
             ],
             "attr": {
-              "planet": "Planet Z"
+              "planet": "Planet X"
             }
           },
           "american": {
             "password": "mcghee",
             "roles": [
-              "SpacefarerEditor"
+              "SpacefarerOfficer"
             ],
             "attr": {
-              "planet": "Planet A"
+              "planet": "Venus"
             }
-          }
+          },
+          "*": false
         }
       },
       "db": {
