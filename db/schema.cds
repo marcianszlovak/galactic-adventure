@@ -86,7 +86,7 @@ entity WarpLicenses : cuid {
   spacefarer     : Association to Spacefarers;
   licenseNumber  : String(20)                          @mandatory;
   issueDate      : Date                                @mandatory;
-  expiryDate     : Date;
+  expiryDate     : Date                                @mandatory;
   status         : WarpLicenseStatus default #Pending  @mandatory  @assert.range: true;
   clearanceLevel : Integer default 1                   @assert.range: [
     1,
