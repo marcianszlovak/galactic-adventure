@@ -94,6 +94,26 @@ annotate service.Spacefarers with {
         }
     );
 };
+
+annotate service.Departments with {
+    ID   @(
+        Common.Text           : name,
+        Common.TextArrangement: #TextOnly,
+        UI.Hidden
+    );
+    name @Common.Label: 'Department Name';
+};
+
+annotate service.Positions with {
+    ID    @(
+        Common.Text           : title,
+        Common.TextArrangement: #TextOnly,
+        UI.Hidden
+    );
+    title @Common.Label: 'Position Title';
+    rank  @Common.Label: 'Position Rank';
+};
+
 annotate service.WarpLicenses with {
     licenseNumber  @(
         Common.Label       : 'License Number',
