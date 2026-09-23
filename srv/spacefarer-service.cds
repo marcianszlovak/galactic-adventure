@@ -39,6 +39,11 @@ service SpacefarerService {
   }
 
   @readonly  @cds.persistence.skip
+  entity WarpLicenseStatuses {
+    key value : gs.WarpLicenseStatus;
+  }
+
+  @readonly  @cds.persistence.skip
   entity SpacesuitColors {
     key value : gs.SpacesuitColor;
   }

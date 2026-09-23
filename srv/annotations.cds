@@ -137,8 +137,17 @@ annotate service.WarpLicenses with {
         Common.FieldControl: 1
     );
     status         @(
-        Common.Label       : 'License Status',
-        Common.FieldControl: licenseStatusFieldControl
+        Common.Label                   : 'License Status',
+        Common.FieldControl            : licenseStatusFieldControl,
+        Common.ValueListWithFixedValues: true,
+        Common.ValueList               : {
+            CollectionPath: 'WarpLicenseStatuses',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: status,
+                ValueListProperty: 'value'
+            }]
+        }
     );
     clearanceLevel @(
         Common.Label       : 'Clearance Level',

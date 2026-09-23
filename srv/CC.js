@@ -31,5 +31,6 @@ export const WARP_LICENSE_NUMBER_PREFIX = "WL-";
 export const SPACEFARER_DROPDOWN_VALUES = [
   "SpacefarerPlanets",
   "SpacefarerStatuses",
+  "WarpLicenseStatuses",
   "SpacesuitColors",
 ];
