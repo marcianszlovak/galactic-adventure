@@ -4,7 +4,11 @@ using galactic.spacefarer as gs from '../db/schema';
 service SpacefarerService {
 
   @odata.draft.enabled
-  entity Spacefarers  as projection on gs.Spacefarers
+  entity Spacefarers  as projection on gs.Spacefarers {
+    *,
+    @UI.Hidden
+    virtual planetFieldControl : Integer
+  }
     actions {
       action issueWarpLicense( @title: 'Clearance Level' clearanceLevel: Integer, @title: 'Issue Date' issueDate: Date, @title: 'Expiry Date' expiryDate: Date) returns Spacefarers;
     };

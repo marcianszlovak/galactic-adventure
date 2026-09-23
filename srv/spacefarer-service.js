@@ -1,88 +1,111 @@
 import cds from "@sap/cds";
+import {
+  ROLE,
+  FIELD_CONTROL,
+  PLANET_WRITE_EVENTS,
+  PLANET_REFRESH_EVENTS,
+  MIN_WORMHOLE_SKILL,
+  SIGNUP_STARDUST_BONUS,
+} from "./CC.js";
+
+function getAssignedPlanet(req) {
+  const planets = [req.user.attr.planet].flat();
+  const [planet] = planets;
+  const isValid =
+    planets.length === 1 && typeof planet === "string" && planet.trim();
+  return isValid ? planet : null;
+}
 
 export default class SpacefarerService extends cds.ApplicationService {
   async init() {
     const { Spacefarers } = this.entities;
+    const draftEntities = [Spacefarers, Spacefarers.drafts];
+    this.emailFormat = new RegExp(
+      Spacefarers.elements.email["@assert.format"],
+      "u",
+    );
+
+    this.before(PLANET_WRITE_EVENTS, draftEntities, (req) =>
+      this.onBeforePlanetWrite(req),
+    );
+    this.after(PLANET_REFRESH_EVENTS, draftEntities, (data, req) =>
+      this.onAfterPlanetRefresh(data, req),
+    );
 
     this.before("PATCH", Spacefarers.drafts, (req) =>
       this.onBeforeDraftPatch(req, Spacefarers),
     );
 
-    this.before("CREATE", Spacefarers, (req) => this.onBeforeCreate(req));
     this.after("CREATE", Spacefarers, (data, req) => this.onAfterCreate(req));
-    this.on("issueWarpLicense", "*", async (req) =>
-      this.handleIssueWarpLicense(req),
-    );
+    this.on("issueWarpLicense", "*", (req) => this.handleIssueWarpLicense(req));
+
     await super.init();
 
     console.log("SpacefarerService initialized");
   }
 
-  async onBeforeDraftPatch(req, Spacefarers) {
-    if (!Object.hasOwn(req.data, "email")) {
+  onBeforePlanetWrite(req) {
+    if (req.user.is(ROLE.ADMIN)) {
       return;
     }
 
-    const email = req.data.email;
-    const format = new RegExp(
-      Spacefarers.elements.email["@assert.format"],
-      "u",
-    );
+    if (!req.user.is(ROLE.OFFICER)) {
+      return;
+    }
 
-    if (typeof email !== "string" || !format.test(email)) {
+    const planet = getAssignedPlanet(req);
+    if (!planet) {
+      return req.reject(
+        403,
+        "A single current planet must be assigned to your user.",
+      );
+    }
+
+    const isCreate = req.event === "NEW" || req.event === "CREATE";
+    if (isCreate) {
+      req.data.originPlanet = planet;
+      return;
+    }
+
+    const isChangingPlanet =
+      Object.hasOwn(req.data, "originPlanet") &&
+      req.data.originPlanet !== planet;
+    if (isChangingPlanet) {
+      return req.reject(
+        403,
+        "Only admins can change the planet.",
+        "originPlanet",
+      );
+    }
+  }
+
+  onAfterPlanetRefresh(data, req) {
+    const isAdmin = req.user.is(ROLE.ADMIN);
+    for (const row of [data].flat().filter(Boolean)) {
+      row.planetFieldControl = isAdmin
+        ? FIELD_CONTROL.MANDATORY
+        : FIELD_CONTROL.READ_ONLY;
+    }
+  }
+
+  async onBeforeDraftPatch(req, Spacefarers) {
+    if (!Object.hasOwn(req.data, "email")) return;
+
+    const { email } = req.data;
+    if (typeof email !== "string" || !this.emailFormat.test(email)) {
       return req.reject(400, "Enter a valid email address.", "email");
     }
 
     const duplicate = await cds.tx(req).run(
-      cds.ql.SELECT.one
+      SELECT.one
         .from(Spacefarers)
         .columns("ID")
-        .where({
-          email,
-          ID: { "!=": req.data.ID },
-        }),
+        .where({ email, ID: { "!=": req.data.ID } }),
     );
 
     if (duplicate) {
       return req.reject(400, "This email address is already in use.", "email");
     }
-  }
-
-  onBeforeCreate(req) {
-    console.log("Received request to create a new spacefarer:", req.data);
-
-    const { wormholeNavSkill, firstName, lastName } = req.data;
-    const stardustCollection =
-      req.data.stardustCollection != null
-        ? Number(req.data.stardustCollection)
-        : null;
-
-    if (
-      wormholeNavSkill != null &&
-      (wormholeNavSkill < 0 || wormholeNavSkill > 100)
-    ) {
-      return req.reject(
-        400,
-        `Wormhole navigation skill must be between 0 and 100. Got: ${wormholeNavSkill}`,
-      );
-    }
-
-    if (stardustCollection != null && stardustCollection < 0) {
-      return req.reject(
-        400,
-        `Stardust collection cannot be negative. Got: ${stardustCollection}`,
-      );
-    }
-
-    req.data.stardustCollection = (stardustCollection ?? 0) + 50;
-    req.data.wormholeNavSkill =
-      wormholeNavSkill != null && wormholeNavSkill >= 10
-        ? wormholeNavSkill
-        : 10;
-
-    console.log(
-      `[@Before CREATE] Prepared ${firstName} ${lastName} for launch.`,
-    );
   }
 
   async onAfterCreate(req) {

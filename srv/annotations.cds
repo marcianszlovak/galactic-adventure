@@ -44,11 +44,7 @@ annotate service.Spacefarers with {
         3
     ]}};
 
-    originPlanet @Common.FieldControl: {$edmJson: {$If: [
-        {$Path: 'HasActiveEntity'},
-        1,
-        3
-    ]}};
+    originPlanet @Common.FieldControl: planetFieldControl;
 };
 
 annotate service.Spacefarers with {
