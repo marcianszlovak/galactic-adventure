@@ -4,8 +4,6 @@ import {
   FIELD_CONTROL,
   PLANET_WRITE_EVENTS,
   PLANET_REFRESH_EVENTS,
-  MIN_WORMHOLE_SKILL,
-  SIGNUP_STARDUST_BONUS,
 } from "./CC.js";
 
 function getAssignedPlanet(req) {

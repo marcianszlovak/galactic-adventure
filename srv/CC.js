@@ -14,6 +14,3 @@ export const PLANET_REFRESH_EVENTS = [
   "CREATE",
   "UPDATE",
 ];
-
-export const MIN_WORMHOLE_SKILL = 10;
-export const SIGNUP_STARDUST_BONUS = 50;
