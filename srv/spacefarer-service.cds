@@ -30,24 +30,26 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
   {
     grant: [
       'READ',
-      'UPDATE'
+      'CREATE',
+      'UPDATE',
+      'DELETE',
+      'issueWarpLicense'
     ],
-    to   : 'SpacefarerEditor',
-    where: 'originPlanet = $user.planet'
+    to   : 'SpacefarerAdmin'
   },
   {
     grant: [
       'READ',
-      'UPDATE',
       'CREATE',
-      'DELETE'
+      'UPDATE',
+      'issueWarpLicense'
     ],
-    to   : 'SpacefarerPowerUser',
+    to   : 'SpacefarerOfficer',
     where: 'originPlanet = $user.planet'
   },
   {
-    grant: ['*'],
-    to   : 'SpacefarerAdmin',
+    grant: 'READ',
+    to   : 'SpacefarerViewer',
     where: 'originPlanet = $user.planet'
   }
 ]);
@@ -61,23 +63,24 @@ annotate SpacefarerService.WarpLicenses with @(restrict: [
   {
     grant: [
       'READ',
-      'UPDATE'
+      'CREATE',
+      'UPDATE',
+      'DELETE'
     ],
-    to   : 'SpacefarerEditor',
-    where: 'spacefarer.originPlanet = $user.planet'
+    to   : 'SpacefarerAdmin'
   },
   {
     grant: [
       'READ',
-      'UPDATE',
-      'DELETE'
+      'CREATE',
+      'UPDATE'
     ],
-    to   : 'SpacefarerPowerUser',
+    to   : 'SpacefarerOfficer',
     where: 'spacefarer.originPlanet = $user.planet'
   },
   {
-    grant: ['*'],
-    to   : 'SpacefarerAdmin',
+    grant: 'READ',
+    to   : 'SpacefarerViewer',
     where: 'spacefarer.originPlanet = $user.planet'
   }
 ]);
