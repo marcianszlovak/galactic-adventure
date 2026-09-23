@@ -119,6 +119,33 @@ annotate service.Spacefarers with {
         }
     );
 };
+annotate service.WarpLicenses with {
+    licenseNumber  @(
+        Common.Label       : 'License Number',
+        Common.FieldControl: 1
+    );
+    issueDate      @(
+        Common.Label       : 'Issue Date',
+        Common.FieldControl: 1
+    );
+    expiryDate     @(
+        Common.Label       : 'Expiry Date',
+        Common.FieldControl: 1
+    );
+    status         @(
+        Common.Label       : 'License Status',
+        Common.FieldControl: licenseStatusFieldControl
+    );
+    clearanceLevel @(
+        Common.Label       : 'Clearance Level',
+        Common.FieldControl: 1
+    );
+};
+
+annotate service.WarpLicenses with @(
+    Capabilities.DeleteRestrictions.Deletable: canDeleteLicense,
+    Capabilities.InsertRestrictions.Insertable: false
+);
 
 annotate service.Spacefarers with @(UI: {
     HeaderInfo               : {
