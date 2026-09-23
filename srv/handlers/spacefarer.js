@@ -39,14 +39,13 @@ export function beforeSpacefarerWrite(req) {
 export function afterSpacefarerRefresh(data, req) {
   const isAdmin = req.user.is(ROLE.ADMIN);
   const isOfficer = req.user.is(ROLE.OFFICER);
-  const planet = getAssignedPlanet(req);
 
   for (const row of [data].flat().filter(Boolean)) {
     row.planetFieldControl = isAdmin
       ? FIELD_CONTROL.MANDATORY
       : FIELD_CONTROL.READ_ONLY;
-    row.canIssueWarpLicense =
-      isAdmin || (isOfficer && row.originPlanet === planet);
+
+    row.canIssueWarpLicense = isAdmin || isOfficer;
   }
 }
 
