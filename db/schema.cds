@@ -85,10 +85,10 @@ entity Positions : cuid {
 
 entity WarpLicenses : cuid {
   spacefarer     : Association to Spacefarers;
-  licenseNumber  : String(20)                          @mandatory;
+  licenseNumber  : String(20)                          @mandatory  @Core.Computed: true;
   issueDate      : Date                                @mandatory;
   expiryDate     : Date                                @mandatory;
-  status         : WarpLicenseStatus default #Pending  @mandatory  @assert.range: true;
+  status         : WarpLicenseStatus default #Pending  @mandatory  @assert.range : true;
   clearanceLevel : Integer default 1                   @assert.range: [
     1,
     10
