@@ -46,11 +46,11 @@ entity Spacefarers : cuid, managed {
   lastName           : String(25)                          @mandatory;
   originPlanet       : Planet                              @mandatory  @assert.range : true;
   spacesuitColor     : SpacesuitColor                      @assert.range: true;
-  stardustCollection : Decimal(10, 2)                      @assert.range: [
+  stardustCollection : Decimal(10, 2) default 0            @assert.range: [
     0,
     99999.99
   ];
-  wormholeNavSkill   : Integer                             @assert.range: [
+  wormholeNavSkill   : Integer default 10                  @assert.range: [
     0,
     100
   ];
@@ -74,7 +74,7 @@ entity Departments : cuid {
 
 entity Positions : cuid {
   title       : String(100);
-  rank        : Integer @assert.range: [
+  rank        : Integer default 0 @assert.range: [
     0,
     5
   ];
