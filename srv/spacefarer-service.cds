@@ -4,32 +4,43 @@ using galactic.spacefarer as gs from '../db/schema';
 service SpacefarerService {
 
   @odata.draft.enabled
-  entity Spacefarers  as projection on gs.Spacefarers {
-    *,
-    @UI.Hidden
-    virtual planetFieldControl : Integer,
-    @UI.Hidden
-    virtual canIssueWarpLicense : Boolean
-  }
+  entity Spacefarers  as
+    projection on gs.Spacefarers {
+      *,
+      @UI.Hidden
+      virtual planetFieldControl  : Integer,
+      @UI.Hidden
+      virtual canIssueWarpLicense : Boolean
+    }
     actions {
       @Common.SideEffects: {TargetEntities: ['warpLicenses']}
       action issueWarpLicense( @title: 'Clearance Level' clearanceLevel: Integer, @title: 'Issue Date' issueDate: Date, @title: 'Expiry Date' expiryDate: Date) returns Spacefarers;
     };
 
 
-  entity WarpLicenses as projection on gs.WarpLicenses {
-    *,
-    @UI.Hidden
-    virtual licenseStatusFieldControl : Integer,
-    @UI.Hidden
-    virtual canDeleteLicense : Boolean
-  };
+  entity WarpLicenses as
+    projection on gs.WarpLicenses {
+      *,
+      @UI.Hidden
+      virtual licenseStatusFieldControl : Integer,
+      @UI.Hidden
+      virtual canDeleteLicense          : Boolean
+    };
 
-  @readonly @cds.persistence.skip
-  entity SpacefarerStatuses { key value : gs.SpacefarerStatus; }
+  @readonly  @cds.persistence.skip
+  entity SpacefarerPlanets {
+    key value : gs.Planet;
+  }
 
-  @readonly @cds.persistence.skip
-  entity SpacesuitColors { key value : gs.SpacesuitColor; }
+  @readonly  @cds.persistence.skip
+  entity SpacefarerStatuses {
+    key value : gs.SpacefarerStatus;
+  }
+
+  @readonly  @cds.persistence.skip
+  entity SpacesuitColors {
+    key value : gs.SpacesuitColor;
+  }
 
   @readonly
   entity Departments  as
@@ -99,4 +110,3 @@ annotate SpacefarerService.WarpLicenses with @(restrict: [
     where: 'spacefarer.originPlanet = $user.planet'
   }
 ]);
-

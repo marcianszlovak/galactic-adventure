@@ -2,7 +2,7 @@ using SpacefarerService as service from './spacefarer-service';
 
 annotate service.Spacefarers with {
     firstName          @(
-        Common.Label: 'First Name',
+        Common.Label       : 'First Name',
         Common.FieldControl: {$edmJson: {$If: [
             {$Path: 'HasActiveEntity'},
             1,
@@ -10,7 +10,7 @@ annotate service.Spacefarers with {
         ]}}
     );
     lastName           @(
-        Common.Label: 'Last Name',
+        Common.Label       : 'Last Name',
         Common.FieldControl: {$edmJson: {$If: [
             {$Path: 'HasActiveEntity'},
             1,
@@ -19,16 +19,25 @@ annotate service.Spacefarers with {
     );
     email              @Common.Label: 'Email Address';
     originPlanet       @(
-        Common.Label: 'Origin Planet',
-        Common.FieldControl: planetFieldControl
+        Common.Label                   : 'Origin Planet',
+        Common.FieldControl            : planetFieldControl,
+        Common.ValueListWithFixedValues: true,
+        Common.ValueList               : {
+            CollectionPath: 'SpacefarerPlanets',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: originPlanet,
+                ValueListProperty: 'value'
+            }]
+        }
     );
     spacesuitColor     @(
-        Common.Label: 'Spacesuit Color',
+        Common.Label                   : 'Spacesuit Color',
         Common.ValueListWithFixedValues: true,
-        Common.ValueList: {
+        Common.ValueList               : {
             CollectionPath: 'SpacesuitColors',
-            Parameters: [{
-                $Type: 'Common.ValueListParameterInOut',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
                 LocalDataProperty: spacesuitColor,
                 ValueListProperty: 'value'
             }]
@@ -37,12 +46,12 @@ annotate service.Spacefarers with {
     stardustCollection @Common.Label: 'Stardust Collection';
     wormholeNavSkill   @Common.Label: 'Wormhole Navigation Skill';
     status             @(
-        Common.Label: 'Spacefarer Status',
+        Common.Label                   : 'Spacefarer Status',
         Common.ValueListWithFixedValues: true,
-        Common.ValueList: {
+        Common.ValueList               : {
             CollectionPath: 'SpacefarerStatuses',
-            Parameters: [{
-                $Type: 'Common.ValueListParameterInOut',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
                 LocalDataProperty: status,
                 ValueListProperty: 'value'
             }]
@@ -50,44 +59,44 @@ annotate service.Spacefarers with {
     );
     yearsInService     @Common.Label: 'Years in Service';
     department         @(
-        Common.Text: department.name,
+        Common.Text           : department.name,
         Common.TextArrangement: #TextOnly,
-        Common.Label: 'Department',
-        Common.ValueList: {
-            $Type: 'Common.ValueListType',
+        Common.Label          : 'Department',
+        Common.ValueList      : {
+            $Type         : 'Common.ValueListType',
             CollectionPath: 'Departments',
-            Parameters: [
+            Parameters    : [
                 {
-                    $Type: 'Common.ValueListParameterInOut',
+                    $Type            : 'Common.ValueListParameterInOut',
                     LocalDataProperty: department_ID,
                     ValueListProperty: 'ID'
                 },
                 {
-                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
                     ValueListProperty: 'name'
                 }
             ]
         }
     );
     position           @(
-        Common.Text: position.title,
+        Common.Text           : position.title,
         Common.TextArrangement: #TextOnly,
-        Common.Label: 'Position',
-        Common.ValueList: {
-            $Type: 'Common.ValueListType',
+        Common.Label          : 'Position',
+        Common.ValueList      : {
+            $Type         : 'Common.ValueListType',
             CollectionPath: 'Positions',
-            Parameters: [
+            Parameters    : [
                 {
-                    $Type: 'Common.ValueListParameterInOut',
+                    $Type            : 'Common.ValueListParameterInOut',
                     LocalDataProperty: position_ID,
                     ValueListProperty: 'ID'
                 },
                 {
-                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
                     ValueListProperty: 'title'
                 },
                 {
-                    $Type: 'Common.ValueListParameterDisplayOnly',
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
                     ValueListProperty: 'rank'
                 }
             ]
@@ -138,7 +147,7 @@ annotate service.WarpLicenses with {
 };
 
 annotate service.WarpLicenses with @(
-    Capabilities.DeleteRestrictions.Deletable: canDeleteLicense,
+    Capabilities.DeleteRestrictions.Deletable : canDeleteLicense,
     Capabilities.InsertRestrictions.Insertable: false
 );
 

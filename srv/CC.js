@@ -29,6 +29,7 @@ export const WARP_LICENSE_CLEARANCE_LEVEL = { MIN: 1, MAX: 10 };
 export const WARP_LICENSE_NUMBER_PREFIX = "WL-";
 
 export const SPACEFARER_DROPDOWN_VALUES = [
+  "SpacefarerPlanets",
   "SpacefarerStatuses",
   "SpacesuitColors",
 ];
