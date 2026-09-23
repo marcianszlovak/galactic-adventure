@@ -5,26 +5,47 @@ using {
   managed
 } from '@sap/cds/common';
 
-type SpacefarerStatus  : String enum {
-  CANDIDATE;
-  ACTIVE;
-  RETIRED;
-  LOST_IN_HYPERSPACE;
+type SpacefarerStatus  : String(25) enum {
+  Candidate;
+  Active;
+  Retired;
+  LostInHyperSpace = 'Lost In Hyper Space';
 }
 
-type WarpLicenseStatus : String enum {
-  PENDING;
-  ACTIVE;
-  EXPIRED;
-  REVOKED;
+type WarpLicenseStatus : String(25) enum {
+  Pending;
+  Active;
+  Expired;
+  Revoked;
+}
+
+type Planet            : String(25) enum {
+  Earth;
+  Mars;
+  Venus;
+  PlanetX = 'Planet X';
+  PlanetY = 'Planet Y';
+  Jupiter;
+  Saturn;
+  Neptune;
+  Kryptos;
+}
+
+type SpacesuitColor    : String(25) enum {
+  Silver;
+  Gold;
+  CosmicBlue = 'Cosmic Blue';
+  NebulaPurple = 'Nebula Purple';
+  SolarOrange = 'Solar Orange';
+  StarWhite = 'Star White';
 }
 
 @assert.unique.email: [email]
 entity Spacefarers : cuid, managed {
   firstName          : String(25)                          @mandatory;
   lastName           : String(25)                          @mandatory;
-  originPlanet       : String(25)                          @mandatory;
-  spacesuitColor     : String(10);
+  originPlanet       : Planet                              @mandatory  @assert.range : true;
+  spacesuitColor     : SpacesuitColor                      @assert.range: true;
   stardustCollection : Decimal(10, 2)                      @assert.range: [
     0,
     99999.99
@@ -33,7 +54,7 @@ entity Spacefarers : cuid, managed {
     0,
     100
   ];
-  status             : SpacefarerStatus default #CANDIDATE @mandatory;
+  status             : SpacefarerStatus default #Candidate @mandatory;
   yearsInService     : Integer default 0                   @assert.range: [
     0,
     100
@@ -53,18 +74,21 @@ entity Departments : cuid {
 
 entity Positions : cuid {
   title       : String(100);
-  rank        : Integer;
+  rank        : Integer @assert.range: [
+    0,
+    5
+  ];
   spacefarers : Association to many Spacefarers
                   on spacefarers.position = $self;
 }
 
 entity WarpLicenses : cuid {
   spacefarer     : Association to Spacefarers;
-  licenseNumber  : String(20)                         @mandatory;
-  issueDate      : Date                               @mandatory;
+  licenseNumber  : String(20)                          @mandatory;
+  issueDate      : Date                                @mandatory;
   expiryDate     : Date;
-  status         : WarpLicenseStatus default #PENDING @mandatory;
-  clearanceLevel : Integer default 1                  @assert.range: [
+  status         : WarpLicenseStatus default #Pending  @mandatory  @assert.range: true;
+  clearanceLevel : Integer default 1                   @assert.range: [
     1,
     10
   ];
