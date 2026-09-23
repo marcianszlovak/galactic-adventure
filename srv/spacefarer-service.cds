@@ -13,20 +13,23 @@ service SpacefarerService {
   entity WarpLicenses as projection on gs.WarpLicenses;
 
   @readonly
-  entity Departments  as projection on gs.Departments;
+  entity Departments  as
+    projection on gs.Departments
+    excluding {
+      spacefarers
+    };
 
   @readonly
-  entity Positions    as projection on gs.Positions;
+  entity Positions    as
+    projection on gs.Positions
+    excluding {
+      spacefarers
+    };
 }
 
 annotate SpacefarerService with @(requires: 'authenticated-user');
 
 annotate SpacefarerService.Spacefarers with @(restrict: [
-  {
-    grant: ['READ'],
-    to   : 'SpacefarerViewer',
-    where: 'originPlanet = $user.planet'
-  },
   {
     grant: [
       'READ',
@@ -55,11 +58,6 @@ annotate SpacefarerService.Spacefarers with @(restrict: [
 ]);
 
 annotate SpacefarerService.WarpLicenses with @(restrict: [
-  {
-    grant: ['READ'],
-    to   : 'SpacefarerViewer',
-    where: 'spacefarer.originPlanet = $user.planet'
-  },
   {
     grant: [
       'READ',
