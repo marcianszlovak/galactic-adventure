@@ -4,6 +4,7 @@ import {
   FIELD_CONTROL,
   PLANET_WRITE_EVENTS,
   PLANET_REFRESH_EVENTS,
+  SPACEFARER_DROPDOWN_VALUES,
 } from "./CC.js";
 
 function getAssignedPlanet(req) {
@@ -17,6 +18,7 @@ function getAssignedPlanet(req) {
 export default class SpacefarerService extends cds.ApplicationService {
   async init() {
     const { Spacefarers } = this.entities;
+
     const draftEntities = [Spacefarers, Spacefarers.drafts];
     this.emailFormat = new RegExp(
       Spacefarers.elements.email["@assert.format"],
@@ -36,6 +38,12 @@ export default class SpacefarerService extends cds.ApplicationService {
 
     this.after("CREATE", Spacefarers, (data, req) => this.onAfterCreate(req));
     this.on("issueWarpLicense", "*", (req) => this.handleIssueWarpLicense(req));
+
+    this.on("READ", SPACEFARER_DROPDOWN_VALUES, (req) =>
+      Object.entries(req.target.elements.value.enum).map(([name, entry]) => ({
+        value: entry.val ?? name,
+      })),
+    );
 
     await super.init();
 
@@ -87,6 +95,15 @@ export default class SpacefarerService extends cds.ApplicationService {
   }
 
   async onBeforeDraftPatch(req, Spacefarers) {
+    for (const [field, value] of Object.entries(req.data)) {
+      if (
+        Spacefarers.elements[field]?.["@mandatory"] &&
+        (value == null || (typeof value === "string" && !value.trim()))
+      ) {
+        return req.reject(400, "This field is required.", field);
+      }
+    }
+
     if (!Object.hasOwn(req.data, "email")) return;
 
     const { email } = req.data;

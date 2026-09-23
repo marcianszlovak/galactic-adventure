@@ -1,6 +1,31 @@
 using SpacefarerService as service from './spacefarer-service';
 
 annotate service.Spacefarers with {
+    status @(
+        Common.ValueListWithFixedValues: true,
+        Common.ValueList: {
+            CollectionPath: 'SpacefarerStatuses',
+            Parameters: [{
+                $Type: 'Common.ValueListParameterInOut',
+                LocalDataProperty: status,
+                ValueListProperty: 'value'
+            }]
+        }
+    );
+    spacesuitColor @(
+        Common.ValueListWithFixedValues: true,
+        Common.ValueList: {
+            CollectionPath: 'SpacesuitColors',
+            Parameters: [{
+                $Type: 'Common.ValueListParameterInOut',
+                LocalDataProperty: spacesuitColor,
+                ValueListProperty: 'value'
+            }]
+        }
+    );
+};
+
+annotate service.Spacefarers with {
     firstName          @Common.Label: 'First Name';
     lastName           @Common.Label: 'Last Name';
     email              @Common.Label: 'Email Address';

@@ -16,6 +16,12 @@ service SpacefarerService {
 
   entity WarpLicenses as projection on gs.WarpLicenses;
 
+  @readonly @cds.persistence.skip
+  entity SpacefarerStatuses { key value : gs.SpacefarerStatus; }
+
+  @readonly @cds.persistence.skip
+  entity SpacesuitColors { key value : gs.SpacesuitColor; }
+
   @readonly
   entity Departments  as
     projection on gs.Departments

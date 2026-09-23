@@ -14,3 +14,7 @@ export const PLANET_REFRESH_EVENTS = [
   "CREATE",
   "UPDATE",
 ];
+export const SPACEFARER_DROPDOWN_VALUES = [
+  "SpacefarerStatuses",
+  "SpacesuitColors",
+];
